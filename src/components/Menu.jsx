@@ -8,6 +8,8 @@ function Menu() {
             <MenuOption name="Staff" icon="staff.png" />
             <MenuOption name="Aircraft" icon="aircraft.png" />
             <MenuOption name="Passengers" icon="passengers.png" />
+            <MenuOption name="Airports" icon="airports.png" />
+            <MenuOption name="Airlines" icon="airlines.png" />
         </div>
     )
 }

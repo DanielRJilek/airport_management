@@ -7,12 +7,30 @@ header {
     width: 100%;
 }
 
-img {
+header > img {
     object-fit: cover ;
-    max-height: 15vh;
+    height: 15vh;
     border-radius: 10px;
+    transition: height 0.5s;
+}
+
+header > img:hover {
+    height: 17vh;
 }
 
 button {
     margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#home-button {
+    justify-content: center;
+    margin-left: auto;
+}
+
+#home-button img {
+    padding: 5px;
 }

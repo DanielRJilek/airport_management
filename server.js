@@ -31,9 +31,14 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-    connection.end(function(err) {
-    if (err) throw err;
-    res.send('1');
-    });
+    if (connection != null) {
+        connection.end(function(err) {
+            if (err) throw err;
+        res.send('1');
+        });
+    }
+    else {
+        res.send('1');
+    }
 });
 

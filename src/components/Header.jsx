@@ -21,10 +21,22 @@ function Header() {
             console.error("Error ending connection:", err)
         }        
     }
+
+    const home = () => {
+        navigate('/MainMenuPage');
+    }
+
     return (
         <header>
             <Logo/>
-            <button onClick={logout}>Log Out</button>
+            <button id='home-button' onClick={home}>
+                <img src="/src/assets/images/home.png"/>
+            </button>
+            <button onClick={logout}>
+                
+                <p>Log Out</p>
+                <img src="/src/assets/images/exit.png"/>
+            </button>
         </header>
     )
 }

@@ -28,10 +28,9 @@ a {
     text-align: center;
     justify-content: center;
     color: inherit;
-    flex: auto;
-    justify-self: flex-start;
+    display: inline;
 }
 
-img {
+.menu-option img {
     background-color: white;
 }
