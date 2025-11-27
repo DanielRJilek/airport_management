@@ -6,7 +6,7 @@ function MainMenuPage() {
     return (
         <div className="page">
             <Header/>
-            <Menu/>
+            <Menu/> 
         </div>
     );
 }

@@ -18,7 +18,7 @@ function LogIn() {
             }
             const code = await response.text();
             if (code == '1') {
-                navigate('MainMenuPage')
+                navigate('/MainMenuPage')
             }
         } 
         catch (error) {
