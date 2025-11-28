@@ -7,7 +7,7 @@ function StaffPage() {
     return(
         <div className="page">
             <Header/>
-            <Menu></Menu>
+            {/* <Menu></Menu> */}
         </div>
     )
 }

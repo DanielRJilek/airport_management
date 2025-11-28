@@ -1,10 +1,16 @@
 import { useState } from "react";
-import {Menu} from "../components"
-import {MenuOption} from "../components/MenuOption"
+import Menu from "../components/Menu"
+import MenuOption from "../components/MenuOption"
+import Header from "../components/Header";
+import DataHolder from "../components/DataHolder";
 
 function FlightsPage() {
     return(
-        <Menu></Menu>
+        <div className="page">
+            <Header/>
+            {/* <Menu></Menu> */}
+            <DataHolder/>
+        </div>
     )
 }
 

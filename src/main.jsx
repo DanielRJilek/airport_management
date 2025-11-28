@@ -9,6 +9,7 @@ import AirportsPage from './pages/AirportsPage.jsx'
 import PassengersPage from './pages/PassengersPage.jsx'
 import StaffPage from './pages/StaffPage.jsx'
 import AircraftPage from './pages/AircraftPage.jsx'
+import FlightsPage from './pages/FlightsPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "AircraftPage",
     element: <AircraftPage />,
+  },
+  {
+    path: "FlightsPage",
+    element: <FlightsPage />,
   }
 ]);
 

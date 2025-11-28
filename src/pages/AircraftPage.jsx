@@ -7,7 +7,8 @@ function AircraftPage() {
     return(
         <div className="page">
             <Header/>
-            <Menu></Menu>
+            {/* <Menu></Menu> */}
+            <DataHolder/>
         </div>
     )
 }

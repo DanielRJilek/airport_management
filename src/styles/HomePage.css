@@ -7,4 +7,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* box-sizing: border-box; */
+}
+
+.logo {
+    /* height: 310.667px; */
+    display: flex;
 }

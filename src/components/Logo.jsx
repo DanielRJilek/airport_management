@@ -5,7 +5,10 @@ function Logo() {
         // <div className="hero">
         //     {text}
         // </div>
-        <img src='../src/assets/images/logo.png' alt="Logo"/>
+        <div className='logo'>
+            <img src='../src/assets/images/logo.png' alt="Logo"/>
+        </div>
+        
     );
 }
 

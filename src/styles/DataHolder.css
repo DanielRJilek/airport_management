@@ -1,0 +1,10 @@
+.data-holder {
+    min-width: 50vw;
+    min-height: 50vh;
+    max-width: 75%;
+    max-width: 700px;
+    background-color: rgba(11, 10, 58, 0.7);
+    /* border: 2px solid rgb(0, 157, 255); */
+    border-radius: 15px;
+    padding: 10px;
+}

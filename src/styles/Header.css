@@ -5,16 +5,17 @@ header {
     top: 0px;
     max-height: 15vh;
     width: 100%;
+    min-width: 320px;
 }
 
-header > img {
+header > .logo > img {
     object-fit: cover ;
     height: 15vh;
     border-radius: 10px;
     transition: height 0.5s;
 }
 
-header > img:hover {
+header > .logo > img:hover {
     height: 17vh;
 }
 

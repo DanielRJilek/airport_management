@@ -42,3 +42,11 @@ app.post("/logout", (req, res) => {
     }
 });
 
+// app.get(
+    // connection.query('CALL ourSQLfunction')) 
+
+// app.post()
+
+// app.put()
+
+// app.delete()
