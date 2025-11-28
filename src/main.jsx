@@ -6,6 +6,9 @@ import './styles/index.css'
 import HomePage from './pages/HomePage.jsx'
 import MainMenuPage from './pages/MainMenuPage.jsx'
 import AirportsPage from './pages/AirportsPage.jsx'
+import PassengersPage from './pages/PassengersPage.jsx'
+import StaffPage from './pages/StaffPage.jsx'
+import AircraftPage from './pages/AircraftPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -25,8 +28,8 @@ const router = createBrowserRouter([
     element: <StaffPage />,
   },
   {
-    path: "CustomersPage",
-    element: <CustomersPage />,
+    path: "PassengersPage",
+    element: <PassengersPage />,
   },
   {
     path: "AircraftPage",
