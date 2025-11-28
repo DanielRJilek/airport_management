@@ -1,5 +1,6 @@
 # Stack
 + This project uses a React frontend build with Vite and an Express backend integrated with Vite + Express
++ The database is MySQL
 
 ## Local Use
 + Download the repository and start a local server with $node server.js
