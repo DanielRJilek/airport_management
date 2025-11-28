@@ -3,7 +3,7 @@ import  Menu  from "../components/Menu"
 import MenuOption from "../components/MenuOption"
 import Header from "../components/Header";
 
-function AirportsPage() {
+function CustomersPage() {
     return(
         <div className="page">
             <Header/>
@@ -12,4 +12,4 @@ function AirportsPage() {
     )
 }
 
-export default AirportsPage
+export default CustomersPage
