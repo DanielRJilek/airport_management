@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import '../styles/Table.css'
 
 function Table({data}) {
+    const [selectedRow,setSelectedRow] = useState(null);
 
     if (data == null || data.length == 0) {
         return (
@@ -18,6 +19,10 @@ function Table({data}) {
 
     const headers = Object.keys(data[0]);
 
+    const handleClick = (item) => {
+        setSelectedRow(item);
+    }
+
     return (
         <table className="data-table">
             <tbody>
@@ -27,7 +32,7 @@ function Table({data}) {
                     ))}
                 </tr>
                 {data.map((item) => (
-                    <tr>
+                    <tr onClick={() => handleClick(item)} className={item==selectedRow ? "selected-row": ""}>
                         {(Object.values(item)).map((value) => (
                             <td key={value}>{value}</td>
                         ))}

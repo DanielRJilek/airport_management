@@ -4,3 +4,22 @@
     /* max-height: 500px; */
     overflow-y: auto;
 }
+
+.table-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+.data-table {
+    overflow-y: auto;
+    border-spacing: 6px;
+    border-collapse: collapse;
+}
+
+.data-table  * {
+    font-size: small;
+}
+
+.selected-row {
+    background-color: lightgray;
+}

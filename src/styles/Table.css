@@ -1,8 +1,14 @@
 .data-table {
     overflow-y: auto;
     border-spacing: 6px;
+    border-collapse: collapse;
 }
 
 .data-table  * {
     font-size: small;
 }
+
+.selected-row {
+    background-color: lightgray;
+}
+

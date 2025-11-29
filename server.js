@@ -14,6 +14,7 @@ app.use(upload.array());
 
 ViteExpress.listen(app, 5173, () => console.log("Server is listening..."));
 
+// Log in and out calls
 
 app.post("/login", (req, res) => {
     console.log(req.body);
@@ -61,10 +62,22 @@ app.get('/passengers', (req,res) => {
 
 // app.put()
 
-// app.delete()
+app.delete('/passengers/:id', (req,res) => {
+    console.log(req.params.id);
+    const id = req.params.id.toString();
+    console.log(id);
+    connection.query(`CALL delete_passenger(${id})`, function(err,result) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.send("1");
+        }
+    })
+});
 
 
-// Crew Calls
+// Crew/staff Calls
 
 app.get('/staff', (req,res) => {
     connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
@@ -76,3 +89,11 @@ app.get('/staff', (req,res) => {
         }
     }) 
 }); 
+
+// Flight calls
+
+// Airport calls
+
+// Aircraft calls
+
+// Airline calls
