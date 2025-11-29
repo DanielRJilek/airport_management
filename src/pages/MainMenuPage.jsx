@@ -12,7 +12,7 @@ const optionsList = [
     { name: "Airports", icon: "airports.png", page: '/AirportsPage' },
     { name: "Airlines", icon: "airlines.png", page: '/AirlinesPage' }
 ]
-
+    
 function MainMenuPage() {
     return (
         <div className="page">
