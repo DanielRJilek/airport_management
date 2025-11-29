@@ -9,7 +9,10 @@ function CustomersPage() {
         <div className="page">
             <Header/>
             {/* <Menu></Menu> */}
-            <DataHolder endpoint={'/passengers'}/>
+            <div className="body">
+                <DataHolder endpoint={'/passengers'}/>
+            </div>
+            
         </div>
     )
 }

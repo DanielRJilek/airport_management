@@ -1,4 +1,6 @@
 .data-display {
     flex: auto;
     background-color: white;
+    /* max-height: 500px; */
+    overflow-y: auto;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import '../styles/Table.css'
 
 function Table({data}) {
 
@@ -18,7 +19,7 @@ function Table({data}) {
     const headers = Object.keys(data[0]);
 
     return (
-        <table>
+        <table className="data-table">
             <tbody>
                 <tr>
                     {headers.map((header) => (

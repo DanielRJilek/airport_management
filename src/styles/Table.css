@@ -1,0 +1,8 @@
+.data-table {
+    overflow-y: auto;
+    border-spacing: 6px;
+}
+
+.data-table  * {
+    font-size: small;
+}

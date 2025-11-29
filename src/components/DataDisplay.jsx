@@ -51,7 +51,7 @@ function DataDisplay({endpoint=null}) {
 
     return (
         <>
-            <button onClick={display}>Display Data</button>
+            <button onClick={display}>Reload</button>
             <div className="data-display">
                 {<Table data={data}></Table>}
             </div>

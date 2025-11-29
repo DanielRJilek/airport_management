@@ -17,7 +17,10 @@ function MainMenuPage() {
     return (
         <div className="page">
             <Header/>
-            <Menu optionsList={optionsList}/> 
+            <div className='body'>
+                <Menu optionsList={optionsList}/>
+            </div>
+             
         </div>
     );
 }

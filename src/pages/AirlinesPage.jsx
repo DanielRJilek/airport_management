@@ -9,7 +9,10 @@ function AirlinesPage() {
         <div className="page">
             <Header/>
             {/* <Menu></Menu> */}
-            <DataHolder/>
+            <div className="body">
+                <DataHolder/>
+            </div>
+            
         </div>
     )
 }
