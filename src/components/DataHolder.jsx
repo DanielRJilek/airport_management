@@ -1,8 +1,11 @@
 import '../styles/DataHolder.css'
+import DataDisplay from './DataDisplay'
 
-function DataHolder() {
+function DataHolder({endpoint=null}) {
     return (
-        <div className="data-holder"/>
+        <div className="data-holder">
+            <DataDisplay endpoint={endpoint}/>
+        </div>
     )
 }
 

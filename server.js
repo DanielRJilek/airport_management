@@ -20,7 +20,8 @@ app.post("/login", (req, res) => {
     connection = mysql.createConnection({
     host: "localhost",
     user: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    database: 'Kumar_Jilek_Logan_Database'
     });
 
     connection.connect(function(err) {
@@ -42,8 +43,19 @@ app.post("/logout", (req, res) => {
     }
 });
 
-// app.get(
-    // connection.query('CALL ourSQLfunction')) 
+
+// Passenger Calls
+
+app.get('/passengers', (req,res) => {
+    connection.query('CALL read_passenger(NULL, NULL)', function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }) 
+}); 
 
 // app.post()
 

@@ -5,7 +5,7 @@ function Menu({optionsList}) {
     return (
         <div className='menu'>
             {optionsList.map((option) => (
-                <MenuOption name={option.name} icon={option.icon} page={option.page}/>
+                <MenuOption name={option.name} icon={option.icon} page={option.page} key={option.id}/>
             ))};
             {/* <MenuOption name="Flights" icon="flights.png" />
             <MenuOption name="Staff" icon="staff.png" page='/StaffPage'/>

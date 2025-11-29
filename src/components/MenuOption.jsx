@@ -1,12 +1,12 @@
 import '../styles/MenuOption.css'
 import {useNavigate} from 'react-router'
 
-function MenuOption({page=null, name, icon=null}) {
+function MenuOption({page=null, name, icon=null, id=null}) {
     const navigate = useNavigate();
     const path = '/src/assets/images/' + icon
     const goto = () => navigate(page);
     return (
-        <button className="menu-option" onClick={goto}>
+        <button className="menu-option" onClick={goto} key={id}>
             <p> {name} </p>
             <img src= {path} />
         </button>

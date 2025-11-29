@@ -5,12 +5,12 @@ import Menu from '../components/Menu';
 import '../styles/MainMenuPage.css'
 
 const optionsList = [
-    { name: "Flights", icon: "flights.png", page: '/FlightsPage' },
-    { name: "Staff", icon: "staff.png", page: '/StaffPage' },
-    { name: "Aircraft", icon: "aircraft.png", page: '/AircraftPage' },
-    { name: "Passengers", icon: "passengers.png", page: '/PassengersPage' },
-    { name: "Airports", icon: "airports.png", page: '/AirportsPage' },
-    { name: "Airlines", icon: "airlines.png", page: '/AirlinesPage' }
+    { name: "Flights", icon: "flights.png", page: '/FlightsPage', id: crypto.randomUUID() },
+    { name: "Staff", icon: "staff.png", page: '/StaffPage', id: crypto.randomUUID() },
+    { name: "Aircraft", icon: "aircraft.png", page: '/AircraftPage', id: crypto.randomUUID() },
+    { name: "Passengers", icon: "passengers.png", page: '/PassengersPage', id: crypto.randomUUID() },
+    { name: "Airports", icon: "airports.png", page: '/AirportsPage', id: crypto.randomUUID() },
+    { name: "Airlines", icon: "airlines.png", page: '/AirlinesPage', id: crypto.randomUUID()}
 ]
     
 function MainMenuPage() {

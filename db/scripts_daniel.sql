@@ -33,6 +33,9 @@ CREATE PROCEDURE read_passenger
 BEGIN
 	SET @a = value;
     CASE
+		WHEN attribute is NULL THEN
+			PREPARE stmt from 'SELECT * FROM passenger';
+            EXECUTE stmt;
 		WHEN attribute = 'passenger_id' THEN 
 			PREPARE stmt from 'SELECT * FROM passenger where passenger.passenger_id = ?';    
 			EXECUTE stmt USING @a;
@@ -59,6 +62,7 @@ END //
 DELIMITER ;
 
 call read_passenger('gender', 'Male');
+call read_passenger(NULL, NULL);
 
 DELIMITER //
 DROP procedure if exists update_passenger //
