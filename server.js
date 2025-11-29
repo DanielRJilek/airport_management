@@ -62,3 +62,17 @@ app.get('/passengers', (req,res) => {
 // app.put()
 
 // app.delete()
+
+
+// Crew Calls
+
+app.get('/staff', (req,res) => {
+    connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }) 
+}); 

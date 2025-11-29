@@ -188,7 +188,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call update_passenger_flight();
+-- call update_passenger_flight();-
 select * from passenger_flight;
 
 DELIMITER //
@@ -226,7 +226,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call create_crew();
+-- call create_crew();
 select * from crew;
 
 DELIMITER //
@@ -239,6 +239,9 @@ CREATE PROCEDURE read_crew
 BEGIN
 	SET @a = value;
     CASE
+		WHEN attribute is NULL THEN
+			PREPARE stmt from 'SELECT * FROM crew';
+            EXECUTE stmt;
 		WHEN attribute = 'crew_name' THEN 
 			PREPARE stmt from 'SELECT * FROM crew where crew.crew_name = ?';    
 			EXECUTE stmt USING @a;
@@ -258,7 +261,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call read_crew();
+ call read_crew(NULL, NULL);
 
 DELIMITER //
 DROP procedure if exists update_crew //
@@ -291,7 +294,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call update_crew();
+-- call update_crew();
 select * from crew;
 
 DELIMITER //
@@ -306,7 +309,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call delete_crew(1);
+-- call delete_crew(1);
 select * from crew;
 
 -- Flight_crew operations
@@ -325,7 +328,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call create_flight_crew();
+-- call create_flight_crew();
 select * from flight_crew;
 
 DELIMITER //
@@ -348,7 +351,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call read_flight_crew();
+-- call read_flight_crew();
 
 DELIMITER //
 DROP procedure if exists update_flight_crew //
@@ -372,7 +375,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call update_flight_crew();
+-- call update_flight_crew();
 select * from flight_crew;
 
 DELIMITER //
@@ -408,7 +411,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call create_meal();
+-- call create_meal();
 select * from meal;
 
 DELIMITER //
@@ -437,7 +440,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call read_meal();
+-- call read_meal();
 
 DELIMITER //
 DROP procedure if exists update_meal //
@@ -467,7 +470,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call update_meal();
+-- call update_meal();
 select * from meal;
 
 DELIMITER //
@@ -505,7 +508,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call create_baggage();
+-- call create_baggage();
 select * from baggage;
 
 DELIMITER //
@@ -543,7 +546,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call read_baggage();
+-- call read_baggage();
 
 DELIMITER //
 DROP procedure if exists update_baggage //
@@ -582,12 +585,12 @@ BEGIN
 END //
 DELIMITER ;
 
-call update_baggage();
+-- call update_baggage();
 select * from baggage;
 
 DELIMITER //
 DROP procedure if exists delete_baggage //
-CREATE PROCEDURE delete_meal
+CREATE PROCEDURE delete_baggage
 (
     id int
 )
