@@ -10,7 +10,7 @@ function StaffPage() {
             <Header/>
             {/* <Menu></Menu> */}
             <div className="body">
-                <DataHolder endpoint={'/staff'}/>
+                <DataHolder endpoint={'/crew'}/>
             </div>
             
         </div>

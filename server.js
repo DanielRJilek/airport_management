@@ -10,6 +10,7 @@ var upload = multer();
 let mysql = require('mysql2');
 const app = express();
 app.use(express.json()); 
+app.use(express.text());
 app.use(upload.array());
 
 ViteExpress.listen(app, 5173, () => console.log("Server is listening..."));
@@ -44,7 +45,7 @@ app.post("/logout", (req, res) => {
     }
 });
 
-
+// Daniel Jilek, Male, 1999-08-18, USA, Booked, P1
 // Passenger Calls
 
 app.get('/passengers', (req,res) => {
@@ -58,14 +59,36 @@ app.get('/passengers', (req,res) => {
     }) 
 }); 
 
-// app.post()
+app.post('/passengers', (req,res) => {
+    console.log(req.body.data);
+    let data = req.body.data.toString();
+    let dataArray = data.split(',')
+    data = "'" + dataArray.join("','") + "'"
+    console.log(data);
+    connection.query(`CALL create_passenger(${data})`, function(err, result) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.send("1");
+        }
+    })
+});
 
-// app.put()
+app.put('/passengers/:id', (req,res) => {
+    const id = req.params.id.toString();
+    connection.query(`CALL update_passenger(${id})`, function(err,result) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.send("1");
+        }
+    })
+});
 
 app.delete('/passengers/:id', (req,res) => {
-    console.log(req.params.id);
     const id = req.params.id.toString();
-    console.log(id);
     connection.query(`CALL delete_passenger(${id})`, function(err,result) {
         if (err) {
             res.send(err);
@@ -79,7 +102,7 @@ app.delete('/passengers/:id', (req,res) => {
 
 // Crew/staff Calls
 
-app.get('/staff', (req,res) => {
+app.get('/crew', (req,res) => {
     connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
         if (err) {
             console.log(err);

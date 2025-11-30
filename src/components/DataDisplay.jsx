@@ -1,11 +1,83 @@
 import { useEffect, useState } from 'react';
 import '../styles/DataDisplay.css'
-import Table from './Table';
+// import Table from './Table';
 
 function DataDisplay({endpoint=null}) {
     const [data,setData] = useState([]);
     const [selectedRow,setSelectedRow] = useState(null);
     const [editingRow, setEditingRow] = useState(null);
+    const [makingChanges, setMakingChanges] = useState(false);
+    const [creatingRow, setCreatingRow] = useState(false);
+    const [filteringRow, setFilteringRow] = useState(false);
+    const [updatingRow, setUpdatingRow] = useState(false);
+
+    const handleClick = (item) => {
+        setSelectedRow(item);
+    }
+
+    const deleteRow = async () => {
+        try {
+            const response = await fetch((endpoint + "/" + selectedRow.id), {
+                method: 'delete'
+            });
+            if (await response.text() == '1') {
+                display();
+            }
+        }
+        catch (error) {
+            console.error("Error: ", error)
+        }
+    }
+
+    const createRow = async () => {
+        setMakingChanges(true);
+        setCreatingRow(true);
+    }
+
+    const updateRow = async () => {
+        setMakingChanges(true);
+        setUpdatingRow(true);
+    }
+
+    const filterRows = async () => {
+        setMakingChanges(true);
+        setFilteringRow(true);
+    }
+
+    const cancel = () => {
+        setMakingChanges(false);
+        setCreatingRow(false);
+        setFilteringRow(false);
+        setUpdatingRow(false);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let data = new FormData(e.target);
+        console.log(data);
+        switch(true) {
+            case creatingRow:
+                try {
+                    const response = await fetch((endpoint), {
+                        method: 'post',
+                        body: data,
+                    });
+                    if (await response.text() == '1') {
+                        display();
+                    }
+                }
+                catch (error) {
+                    console.error("Error: ", error)
+                }
+                break;
+            case filteringRow:
+                break;
+            case updatingRow:
+                break;
+            default:
+                break;
+        }
+    }
 
     const display = async () => {
         try {
@@ -55,44 +127,48 @@ function DataDisplay({endpoint=null}) {
 
     if (data == null || data.length == 0) {
         return (
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Loading ...</th>
-                    </tr>
-                    
-                </tbody>
-            </table>
+            <>
+                <div className='table-options'>
+                    <button className='create-entry' onClick={createRow}>
+                        <img src="/src/assets/images/add.png"/>
+                    </button>
+                    <button className='update-entry' onClick={updateRow}>
+                        <img src="/src/assets/images/edit.png"/>
+                    </button>
+                    <button className='delete-entry' onClick={deleteRow}>
+                        <img src="/src/assets/images/delete.png"/>
+                    </button>
+                    <button className='filter-entries' onClick={filterRows}>
+                        <img src="/src/assets/images/filter.png"/>
+                    </button>
+                    {/* <button onClick={display} className='refresh'>
+                        <img src="/src/assets/images/refresh.png"/>
+                    </button> */}
+                </div>
+                <div className="data-display">
+                    <table className='data-table'>
+                        <tbody>
+                            <tr>
+                                <th>Loading ...</th>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </>
+            
         )
     }
 
     const headers = Object.keys(data[0]);
 
-    const handleClick = (item) => {
-        setSelectedRow(item);
-    }
-
-    const deleteRow = async () => {
-        try {
-            const response = await fetch((endpoint + "/" + selectedRow.id), {
-                method: 'delete'
-            });
-            if (await response.text() == '1') {
-                display();
-            }
-        }
-        catch (error) {
-            console.error("Error: ", error)
-        }
-    }
-
     return (
         <>
             <div className='table-options'>
-                <button className='create-entry'>
+                <button className='create-entry' onClick={createRow}>
                     <img src="/src/assets/images/add.png"/>
                 </button>
-                <button className='update-entry'>
+                <button className='update-entry' onClick={updateRow}>
                     <img src="/src/assets/images/edit.png"/>
                 </button>
                 <button className='delete-entry' onClick={deleteRow}>
@@ -105,10 +181,19 @@ function DataDisplay({endpoint=null}) {
                     <img src="/src/assets/images/refresh.png"/>
                 </button> */}
             </div>
+            <div className={`user-input ${makingChanges ? "": "hidden"}`}>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" id="data" name="data"></input>
+                    <input type="submit" value="Submit"></input>
+                    <button onClick={cancel}>Cancel</button>
+                </form>
+                
+
+            </div>
             <div className="data-display">
                 <table className="data-table">
                     <tbody>
-                        <tr>
+                        <tr id='header-row'>
                             {headers.map((header) => (
                                 <th key={header}>{header}</th>
                             ))}
