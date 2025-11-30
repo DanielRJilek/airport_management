@@ -48,8 +48,10 @@ app.post("/logout", (req, res) => {
 // Daniel Jilek, Male, 1999-08-18, USA, Booked, P1
 // Passenger Calls
 
-app.get('/passengers', (req,res) => {
-    connection.query('CALL read_passenger(NULL, NULL)', function(err, result) {
+app.get('/menus/:menuID', (req,res) => {
+    console.log(req.params);
+    let menuID = req.params.menuID.toString();
+    connection.query('CALL read_' + menuID + '(NULL, NULL)', function(err, result) {
         if (err) {
             console.log(err);
         }
@@ -59,13 +61,12 @@ app.get('/passengers', (req,res) => {
     }) 
 }); 
 
-app.post('/passengers', (req,res) => {
-    console.log(req.body.data);
+app.post('/menus/:menuID', (req,res) => {
     let data = req.body.data.toString();
-    let dataArray = data.split(',')
-    data = "'" + dataArray.join("','") + "'"
-    console.log(data);
-    connection.query(`CALL create_passenger(${data})`, function(err, result) {
+    let menuID = req.params.menuID.toString();
+    let dataArray = data.split(',');
+    data = "'" + dataArray.join("','") + "'";
+    connection.query(`CALL create_` + menuID + `(${data})`, function(err, result) {
         if (err) {
             res.send(err);
         }
@@ -75,9 +76,15 @@ app.post('/passengers', (req,res) => {
     })
 });
 
-app.put('/passengers/:id', (req,res) => {
-    const id = req.params.id.toString();
-    connection.query(`CALL update_passenger(${id})`, function(err,result) {
+app.put('/menus/:menuID/:id', (req,res) => {
+    let menuID = req.params.menuID.toString();
+    let id = req.params.id.toString();
+    let data = req.body.data.toString();
+    let dataArray = data.split(',');
+    dataArray.splice(0,0, id);
+    data = "'" + dataArray.join("','") + "'";
+    
+    connection.query(`CALL update_` + menuID + `(${data})`, function(err,result) {
         if (err) {
             res.send(err);
         }
@@ -87,9 +94,10 @@ app.put('/passengers/:id', (req,res) => {
     })
 });
 
-app.delete('/passengers/:id', (req,res) => {
+app.delete('/menus/:menuID/:id', (req,res) => {
+    let menuID = req.params.menuID.toString();
     const id = req.params.id.toString();
-    connection.query(`CALL delete_passenger(${id})`, function(err,result) {
+    connection.query(`CALL delete_` + menuID + `(${id})`, function(err,result) {
         if (err) {
             res.send(err);
         }
@@ -102,16 +110,16 @@ app.delete('/passengers/:id', (req,res) => {
 
 // Crew/staff Calls
 
-app.get('/crew', (req,res) => {
-    connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-        }
-    }) 
-}); 
+// app.get('/crew', (req,res) => {
+//     connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             res.send(result);
+//         }
+//     }) 
+// }); 
 
 // Flight calls
 

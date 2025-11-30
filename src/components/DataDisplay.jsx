@@ -17,7 +17,7 @@ function DataDisplay({endpoint=null}) {
 
     const deleteRow = async () => {
         try {
-            const response = await fetch((endpoint + "/" + selectedRow.id), {
+            const response = await fetch((endpoint + selectedRow.id), {
                 method: 'delete'
             });
             if (await response.text() == '1') {
@@ -73,7 +73,18 @@ function DataDisplay({endpoint=null}) {
             case filteringRow:
                 break;
             case updatingRow:
-                break;
+                try {
+                    const response = await fetch((endpoint + selectedRow.id), {
+                        method: 'put',
+                        body: data,
+                    });
+                    if (await response.text() == '1') {
+                        display();
+                    }
+                }
+                catch (error) {
+                    console.error("Error: ", error)
+                }
             default:
                 break;
         }
@@ -101,6 +112,7 @@ function DataDisplay({endpoint=null}) {
 
     useEffect(() => {
         const load = async () => {
+            console.log(endpoint)
             try {
             const response = await fetch(endpoint, {
                 method:'get',
