@@ -73,9 +73,8 @@ function DataDisplay({endpoint=null}) {
     }
 
     const deleteRow = async () => {
-        console.log(selectedRow.passenger_id)
         try {
-            const response = await fetch((endpoint + "/" + selectedRow.passenger_id), {
+            const response = await fetch((endpoint + "/" + selectedRow.id), {
                 method: 'delete'
             });
             if (await response.text() == '1') {

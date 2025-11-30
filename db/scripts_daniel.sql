@@ -36,8 +36,8 @@ BEGIN
 		WHEN attribute is NULL THEN
 			PREPARE stmt from 'SELECT * FROM passenger';
             EXECUTE stmt;
-		WHEN attribute = 'passenger_id' THEN 
-			PREPARE stmt from 'SELECT * FROM passenger where passenger.passenger_id = ?';    
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'SELECT * FROM passenger where passenger.id = ?';    
 			EXECUTE stmt USING @a;
 		WHEN attribute = 'full_name' THEN 
 			PREPARE stmt from 'SELECT * FROM passenger where passenger.full_name = ?';    
@@ -76,26 +76,26 @@ BEGIN
 	SET @a = value;
     SET @b = id;
     CASE
-		WHEN attribute = 'passenger_id' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.passenger_id = ? where passenger.passenger_id = ?';    
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'UPDATE passenger set passenger.id = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'full_name' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.full_name = ? where passenger.passenger_id = ?';
+			PREPARE stmt from 'UPDATE passenger set passenger.full_name = ? where passenger.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'gender' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.gender = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger set passenger.gender = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'date_of_birth' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.date_of_birth = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger set passenger.date_of_birth = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'nationality' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.nationality = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger set passenger.nationality = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'status' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.status = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger set passenger.status = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'passport_number' THEN 
-			PREPARE stmt from 'UPDATE passenger set passenger.passport_number = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger set passenger.passport_number = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -112,7 +112,7 @@ CREATE PROCEDURE delete_passenger
 )
 BEGIN
 	DELETE FROM passenger
-		where passenger.passenger_id = id;
+		where passenger.id = id;
 END //
 DELIMITER ;
 
@@ -130,8 +130,8 @@ CREATE PROCEDURE create_passenger_flight
     seat_id        INT
 )
 BEGIN
-	INSERT INTO Passenger_Flight (pf_id, passenger_id, flight_id, seat_id) 
-		VALUES (pf_id, passenger_id, flight_id, seat_id);
+	INSERT INTO Passenger_Flight (id, passenger_id, flight_id, seat_id) 
+		VALUES (id, passenger_id, flight_id, seat_id);
 END //
 DELIMITER ;
 
@@ -161,7 +161,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call read_passenger_flight('passenger_id', 1);
+-- call read_passenger_flight('id', 1);
 
 DELIMITER //
 DROP procedure if exists update_passenger_flight //
@@ -176,13 +176,13 @@ BEGIN
     SET @b = id;
     CASE
 		WHEN attribute = 'passenger_id' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.passenger_id = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.passenger_id = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'flight_id' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.flight_id = ? where passenger.passenger_id = ?';
+			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.flight_id = ? where passenger.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'seat_id' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.seat_id = ? where passenger.passenger_id = ?';    
+			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.seat_id = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -199,7 +199,7 @@ CREATE PROCEDURE delete_passenger_flight
 )
 BEGIN
 	DELETE FROM passenger_flight
-		where passenger_flight.pf_id = id;
+		where passenger_flight.id = id;
 END //
 DELIMITER ;
 
@@ -276,19 +276,19 @@ BEGIN
     SET @b = id;
     CASE
 		WHEN attribute = 'crew_name' THEN 
-			PREPARE stmt from 'UPDATE crew set crew.crew_name = ? where crew.crew_id = ?';    
+			PREPARE stmt from 'UPDATE crew set crew.crew_name = ? where crew.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'first_name' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set crew.first_name = ? where crew.crew_id = ?';
+			PREPARE stmt from 'UPDATE passenger_flight set crew.first_name = ? where crew.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'last_name' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set crew.last_name = ? where crew.crew_id = ?';    
+			PREPARE stmt from 'UPDATE passenger_flight set crew.last_name = ? where crew.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'role' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set crew.role = ? where crew.crew_id = ?';
+			PREPARE stmt from 'UPDATE passenger_flight set crew.role = ? where crew.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'city_base' THEN 
-			PREPARE stmt from 'UPDATE passenger_flight set crew.city_base = ? where crew.crew_id = ?';    
+			PREPARE stmt from 'UPDATE passenger_flight set crew.city_base = ? where crew.id = ?';    
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -305,7 +305,7 @@ CREATE PROCEDURE delete_crew
 )
 BEGIN
 	DELETE FROM crew
-		where crew.crew_id = id;
+		where crew.id = id;
 END //
 DELIMITER ;
 
@@ -365,11 +365,11 @@ BEGIN
 	SET @a = value;
     SET @b = id;
     CASE
-		WHEN attribute = 'flight_id' THEN 
-			PREPARE stmt from 'UPDATE flight_crew set flight_crew.flight_id = ? where flight_crew.fc_id = ?';    
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'UPDATE flight_crew set flight_crew.id = ? where flight_crew.id = ?';    
 			EXECUTE stmt USING @a, @b;
-		WHEN attribute = 'crew_id' THEN 
-			PREPARE stmt from 'UPDATE flight_crew set flight_crew.crew_id = ? where flight_crew.fc_id = ?';
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'UPDATE flight_crew set flight_crew.id = ? where flight_crew.id = ?';
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -386,7 +386,7 @@ CREATE PROCEDURE delete_flight_crew
 )
 BEGIN
 	DELETE FROM flight_crew
-		where flight_crew.fc_id = id;
+		where flight_crew.id = id;
 END //
 DELIMITER ;
 
@@ -455,16 +455,16 @@ BEGIN
     SET @b = id;
     CASE
 		WHEN attribute = 'meal_name' THEN 
-			PREPARE stmt from 'UPDATE meal set meal.meal_name = ? where meal.meal_id = ?';    
+			PREPARE stmt from 'UPDATE meal set meal.meal_name = ? where meal.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'cuisine' THEN 
-			PREPARE stmt from 'UPDATE meal set meal.cuisine = ? where meal.meal_id = ?';
+			PREPARE stmt from 'UPDATE meal set meal.cuisine = ? where meal.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'quantity' THEN 
-			PREPARE stmt from 'UPDATE meal set meal.quantity = ? where meal.meal_id = ?';    
+			PREPARE stmt from 'UPDATE meal set meal.quantity = ? where meal.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'flight_id' THEN 
-			PREPARE stmt from 'UPDATE meal set meal.flight_id = ? where meal.meal_id = ?';
+			PREPARE stmt from 'UPDATE meal set meal.flight_id = ? where meal.id = ?';
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -481,7 +481,7 @@ CREATE PROCEDURE delete_meal
 )
 BEGIN
 	DELETE FROM meal
-		where meal.meal_id = id;
+		where meal.id = id;
 END //
 DELIMITER ;
 
@@ -561,25 +561,25 @@ BEGIN
     SET @b = id;
     CASE
 		WHEN attribute = 'ticket_num' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.meal_name = ? where baggage.bag_id = ?';    
+			PREPARE stmt from 'UPDATE baggage set baggage.meal_name = ? where baggage.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'weight' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.weight = ? where baggage.bag_id = ?';
+			PREPARE stmt from 'UPDATE baggage set baggage.weight = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'tag_number' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.tag_number = ? where baggage.bag_id = ?';    
+			PREPARE stmt from 'UPDATE baggage set baggage.tag_number = ? where baggage.id = ?';    
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'destination' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.destination = ? where baggage.bag_id = ?';
+			PREPARE stmt from 'UPDATE baggage set baggage.destination = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
 		WHEN attribute = 'status' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.status = ? where baggage.bag_id = ?';
+			PREPARE stmt from 'UPDATE baggage set baggage.status = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
-		WHEN attribute = 'passenger_id' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.passenger_id = ? where baggage.bag_id = ?';
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'UPDATE baggage set baggage.id = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
-		WHEN attribute = 'flight_id' THEN 
-			PREPARE stmt from 'UPDATE baggage set baggage.flight_id = ? where baggage.bag_id = ?';
+		WHEN attribute = 'id' THEN 
+			PREPARE stmt from 'UPDATE baggage set baggage.id = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
 	end case;
 END //
@@ -596,7 +596,7 @@ CREATE PROCEDURE delete_baggage
 )
 BEGIN
 	DELETE FROM baggage
-		where baggage.bag_id = id;
+		where baggage.id = id;
 END //
 DELIMITER ;
 
