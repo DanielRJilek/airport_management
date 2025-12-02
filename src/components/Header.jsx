@@ -29,14 +29,15 @@ function Header() {
     return (
         <header>
             <Logo/>
-            <button id='home-button' onClick={home}>
-                <img src="/src/assets/images/home.png"/>
-            </button>
-            <button onClick={logout}>
-                
-                <p>Log Out</p>
-                <img src="/src/assets/images/exit.png"/>
-            </button>
+            <div className='header-button-holder'>
+                <button id='home-button' onClick={home}>
+                    <img src="/src/assets/images/home.png"/>
+                </button>
+                <button onClick={logout}>
+                    <p>Log Out</p>
+                    <img src="/src/assets/images/exit.png"/>
+                </button>
+            </div>
         </header>
     )
 }

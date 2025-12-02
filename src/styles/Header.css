@@ -6,6 +6,7 @@ header {
     max-height: 15vh;
     width: 100%;
     min-width: 320px;
+    /* background-color: rgba(11, 10, 58, 0.9); */
 }
 
 header > .logo > img {
@@ -20,7 +21,7 @@ header > .logo > img:hover {
 }
 
 button {
-    margin: 20px;
+    /* margin: 10px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,9 +30,48 @@ button {
 
 #home-button {
     justify-content: center;
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 
 #home-button img {
-    padding: 5px;
+    /* padding: 0; */
+}
+
+header button {
+    transition: background-color 0.5s;
+    transition: color 0.5s;
+    transition: border-color 0.5s;
+    color: black;
+    margin: 0 5px;
+    box-sizing: border-box;
+    /* padding: 0; */
+}
+
+header button:hover {
+    background-color: rgba(0, 0, 96, 0.9);
+    color: white;
+    /* border-width: 2px; */
+    border-color: rgb(0, 157, 255);
+}
+
+header img {
+    background-color: white;
+    object-fit: contain;
+    padding: 0;
+}
+
+.header-button-holder {
+    background-color: rgba(11, 10, 58, 0.7);
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    max-height: 7vh;
+    padding: 10px;
+}
+
+
+#home-button {
+    border-radius: 25%;
+    /* margin: 2px; */
+    /* padding: 3px; */
 }

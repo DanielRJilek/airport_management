@@ -10,45 +10,44 @@ function DataDisplay({endpoint=null}) {
     const [creatingRow, setCreatingRow] = useState(false);
     const [filteringRow, setFilteringRow] = useState(false);
     const [updatingRow, setUpdatingRow] = useState(false);
+    const [deletingRow, setDeletingRow] = useState(false);
+    const [action, setAction] = useState("Submit");
 
     const handleClick = (item) => {
         setSelectedRow(item);
     }
 
     const deleteRow = async () => {
-        try {
-            const response = await fetch((endpoint + selectedRow.id), {
-                method: 'delete'
-            });
-            if (await response.text() == '1') {
-                display();
-            }
-        }
-        catch (error) {
-            console.error("Error: ", error)
-        }
+        setMakingChanges(true);
+        setDeletingRow(true);
+        setAction("Delete");
     }
 
     const createRow = async () => {
         setMakingChanges(true);
         setCreatingRow(true);
+        setAction("Create");
     }
 
     const updateRow = async () => {
         setMakingChanges(true);
         setUpdatingRow(true);
+        setAction("Update");
     }
 
     const filterRows = async () => {
         setMakingChanges(true);
         setFilteringRow(true);
+        setAction("Filter");
     }
 
-    const cancel = () => {
-        setMakingChanges(false);
-        setCreatingRow(false);
-        setFilteringRow(false);
-        setUpdatingRow(false);
+    const reset = (e) => {
+        // setMakingChanges(false);
+        // setCreatingRow(false);
+        // setFilteringRow(false);
+        // setUpdatingRow(false);
+        // setDeletingRow(false);
+        e.target.form.reset();
     }
 
     const handleSubmit = async (e) => {
@@ -77,6 +76,18 @@ function DataDisplay({endpoint=null}) {
                     const response = await fetch((endpoint + selectedRow.id), {
                         method: 'put',
                         body: data,
+                    });
+                    if (await response.text() == '1') {
+                        display();
+                    }
+                }
+                catch (error) {
+                    console.error("Error: ", error)
+                }
+            case deletingRow:
+                try {
+                    const response = await fetch((endpoint + selectedRow.id), {
+                        method: 'delete'
                     });
                     if (await response.text() == '1') {
                         display();
@@ -196,8 +207,8 @@ function DataDisplay({endpoint=null}) {
             <div className={`user-input ${makingChanges ? "": "hidden"}`}>
                 <form onSubmit={handleSubmit}>
                     <input type="text" id="data" name="data"></input>
-                    <input type="submit" value="Submit"></input>
-                    <button onClick={cancel}>Cancel</button>
+                    <input type="submit" value={action}></input>
+                    <button onClick={reset} >Reset</button>
                 </form>
                 
 

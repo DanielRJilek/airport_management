@@ -16,6 +16,17 @@
 .user-input button {
     margin: 5px;
     padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    transition: color 0.5s;
+    transition: border-color 0.5s;
+    color: black;
+}
+
+.user-input button:hover {
+    background-color: rgba(0, 0, 96, 0.9);
+    color: white;
+    border-color: rgb(0, 157, 255);
 }
 
 .user-input input {
@@ -27,8 +38,9 @@
     display: flex;
     flex-direction: row;
     flex: auto;
-    margin: 5px 0;
+    margin: 0;
     padding: 0px;
+    background-color: transparent;
 }
 
 .user-input form input[type=submit] {
@@ -36,22 +48,36 @@
     padding: 5px;
 }
 
+.user-input form * {
+    margin: 0;
+}
+
+button {
+    font-size: small;
+}
+
 .user-input input[type=text] {
     flex: auto;
 }
 
 .hidden {
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 .table-options {
     display: flex;
     justify-content: space-around;
     flex: 3,1,1;
+    padding-top: 5px;
 }
 
 .table-options button {
     margin: 5px;
+    border-radius: 25%;
+}
+
+.table-options img {
+    background-color: white;
 }
 
 .data-table {
