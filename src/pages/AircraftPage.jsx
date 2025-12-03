@@ -10,7 +10,7 @@ function AircraftPage() {
             <Header/>
             {/* <Menu></Menu> */}
             <div className="body">
-                <DataHolder/>
+                <DataHolder endpoint={'/aircraft/'}/>
             </div>
             
         </div>

@@ -10,7 +10,7 @@ function AirportsPage() {
             <Header/>
             {/* <Menu></Menu> */}
             <div className="body">
-                <DataHolder/>
+                <DataHolder endpoint={'/airport/'}/>
             </div>
             
         </div>

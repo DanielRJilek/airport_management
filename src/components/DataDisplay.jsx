@@ -82,19 +82,22 @@ function DataDisplay({endpoint=null}) {
                     }
                 }
                 catch (error) {
-                    console.error("Error: ", error)
+                    console.error("Error: ", error);
                 }
+                break;
             case deletingRow:
                 try {
                     const response = await fetch((endpoint + selectedRow.id), {
                         method: 'delete'
                     });
                     if (await response.text() == '1') {
+                        setDeletingRow(false);
                         display();
+                        
                     }
                 }
                 catch (error) {
-                    console.error("Error: ", error)
+                    console.error("Error: ", error);
                 }
             default:
                 break;
@@ -117,13 +120,13 @@ function DataDisplay({endpoint=null}) {
             
         } 
         catch (error) {
-            console.error("Error: ", error)
+            console.error("Error: ", error);
         }
     }
 
     useEffect(() => {
         const load = async () => {
-            console.log(endpoint)
+            console.log(endpoint);
             try {
             const response = await fetch(endpoint, {
                 method:'get',

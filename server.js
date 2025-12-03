@@ -45,9 +45,6 @@ app.post("/logout", (req, res) => {
     }
 });
 
-// Daniel Jilek, Male, 1999-08-18, USA, Booked, P1
-// Passenger Calls
-
 app.get('/menus/:menuID', (req,res) => {
     console.log(req.params);
     let menuID = req.params.menuID.toString();
@@ -106,25 +103,3 @@ app.delete('/menus/:menuID/:id', (req,res) => {
         }
     })
 });
-
-
-// Crew/staff Calls
-
-// app.get('/crew', (req,res) => {
-//     connection.query('CALL read_crew(NULL, NULL)', function(err, result) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             res.send(result);
-//         }
-//     }) 
-// }); 
-
-// Flight calls
-
-// Airport calls
-
-// Aircraft calls
-
-// Airline calls
