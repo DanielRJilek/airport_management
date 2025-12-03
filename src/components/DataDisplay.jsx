@@ -12,6 +12,7 @@ function DataDisplay({endpoint=null}) {
     const [updatingRow, setUpdatingRow] = useState(false);
     const [deletingRow, setDeletingRow] = useState(false);
     const [action, setAction] = useState("Submit");
+    const [helpMsg, setHelpMsg] = useState("");
 
     const handleClick = (item) => {
         setSelectedRow(item);
@@ -64,9 +65,14 @@ function DataDisplay({endpoint=null}) {
                     if (await response.text() == '1') {
                         display();
                     }
+                    else {
+                        setHelpMsg("Incorrect number of arguments");
+                    }
                 }
                 catch (error) {
+                    setHelpMsg(error);
                     console.error("Error: ", error)
+                    
                 }
                 break;
             case filteringRow:
@@ -80,9 +86,14 @@ function DataDisplay({endpoint=null}) {
                     if (await response.text() == '1') {
                         display();
                     }
+                    else {
+                        setHelpMsg("Incorrect number of arguments");
+                    }
                 }
                 catch (error) {
+                    setHelpMsg(error);
                     console.error("Error: ", error);
+                    
                 }
                 break;
             case deletingRow:
@@ -91,13 +102,18 @@ function DataDisplay({endpoint=null}) {
                         method: 'delete'
                     });
                     if (await response.text() == '1') {
-                        setDeletingRow(false);
+                        // setDeletingRow(false);
                         display();
                         
                     }
+                    else {
+                        setHelpMsg("Incorrect number of arguments");
+                    }
                 }
                 catch (error) {
+                    setHelpMsg(error);
                     console.error("Error: ", error);
+                    
                 }
             default:
                 break;
@@ -110,6 +126,7 @@ function DataDisplay({endpoint=null}) {
                 method:'get',
             });
             if (!response.ok) {
+                setHelpMsg(error);
                 throw new Error("Failed");
             }
             let data = await response.json();
@@ -120,7 +137,9 @@ function DataDisplay({endpoint=null}) {
             
         } 
         catch (error) {
+            setHelpMsg(error);
             console.error("Error: ", error);
+            
         }
     }
 
@@ -132,7 +151,9 @@ function DataDisplay({endpoint=null}) {
                 method:'get',
             });
             if (!response.ok) {
+                setHelpMsg("Network failure");
                 throw new Error("Failed");
+                
             }
             let data = await response.json();
             data = data[0];
@@ -142,7 +163,9 @@ function DataDisplay({endpoint=null}) {
             
             } 
             catch (error) {
-                console.error("Error: ", error)
+                setHelpMsg(error);
+                console.error("Error: ", error);
+                
             }
         }
         
@@ -170,6 +193,9 @@ function DataDisplay({endpoint=null}) {
                     {/* <button onClick={display} className='refresh'>
                         <img src="/src/assets/images/refresh.png"/>
                     </button> */}
+                </div>
+                <div className='help'>
+                        <p className='help'>{helpMsg}</p>
                 </div>
                 <div className="data-display">
                     <table className='data-table'>
@@ -206,6 +232,9 @@ function DataDisplay({endpoint=null}) {
                 {/* <button onClick={display} className='refresh'>
                     <img src="/src/assets/images/refresh.png"/>
                 </button> */}
+            </div>
+            <div className='help'>
+                <p>{helpMsg}</p>        
             </div>
             <div className={`user-input ${makingChanges ? "": "hidden"}`}>
                 <form onSubmit={handleSubmit}>

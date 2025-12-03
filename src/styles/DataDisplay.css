@@ -7,6 +7,12 @@
     align-items: center;
 }
 
+.data-holder p {
+    margin: 5px;
+    font-size: small;
+    color: red;
+}
+
 .user-input {
     display: flex;
     justify-content: center;
