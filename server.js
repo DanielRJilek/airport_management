@@ -58,6 +58,27 @@ app.get('/menus/:menuID', (req,res) => {
     }) 
 }); 
 
+app.get('/menus/:menuID/:attribute/:value', (req,res) => {
+    
+    let menuID = req.params.menuID.toString();
+    let attribute = req.params.attribute.toString();
+    let value = req.params.value.toString();
+    value = value.replace("%20", " ");
+    let dataArray = [];
+    dataArray.push(attribute);
+    dataArray.push(value);
+    let data = "'" + dataArray.join("','") + "'";
+    console.log('CALL read_' + menuID + `(${data})`);
+    connection.query('CALL read_' + menuID + `(${data})`, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }) 
+}); 
+
 app.post('/menus/:menuID', (req,res) => {
     let data = req.body.data.toString();
     let menuID = req.params.menuID.toString();

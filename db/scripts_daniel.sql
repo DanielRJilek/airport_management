@@ -57,6 +57,8 @@ BEGIN
 		WHEN attribute = 'passport_number' THEN 
 			PREPARE stmt from 'SELECT * FROM passenger where passenger.passport_number = ?';    
 			EXECUTE stmt USING @a;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -97,6 +99,8 @@ BEGIN
 		WHEN attribute = 'passport_number' THEN 
 			PREPARE stmt from 'UPDATE passenger set passenger.passport_number = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -184,6 +188,8 @@ BEGIN
 		WHEN attribute = 'seat_id' THEN 
 			PREPARE stmt from 'UPDATE passenger_flight set passenger_flight.seat_id = ? where passenger.id = ?';    
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -257,6 +263,8 @@ BEGIN
 		WHEN attribute = 'city_base' THEN 
 			PREPARE stmt from 'SELECT * FROM crew where crew.city_base = ?';    
 			EXECUTE stmt USING @a;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -290,6 +298,8 @@ BEGIN
 		WHEN attribute = 'city_base' THEN 
 			PREPARE stmt from 'UPDATE passenger_flight set crew.city_base = ? where crew.id = ?';    
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -347,6 +357,8 @@ BEGIN
 		WHEN attribute = 'crew_id' THEN 
 			PREPARE stmt from 'SELECT * FROM flight_crew where flight_crew.crew_id = ?';    
 			EXECUTE stmt USING @a;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -371,6 +383,8 @@ BEGIN
 		WHEN attribute = 'id' THEN 
 			PREPARE stmt from 'UPDATE flight_crew set flight_crew.id = ? where flight_crew.id = ?';
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -436,6 +450,8 @@ BEGIN
 		WHEN attribute = 'flight_id' THEN 
 			PREPARE stmt from 'SELECT * FROM meal where meal.flight_id = ?';    
 			EXECUTE stmt USING @a;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -466,6 +482,8 @@ BEGIN
 		WHEN attribute = 'flight_id' THEN 
 			PREPARE stmt from 'UPDATE meal set meal.flight_id = ? where meal.id = ?';
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -542,6 +560,8 @@ BEGIN
 		WHEN attribute = 'flight_id' THEN 
 			PREPARE stmt from 'SELECT * FROM baggage where baggage.flight_id = ?';    
 			EXECUTE stmt USING @a;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;
@@ -581,6 +601,8 @@ BEGIN
 		WHEN attribute = 'id' THEN 
 			PREPARE stmt from 'UPDATE baggage set baggage.id = ? where baggage.id = ?';
 			EXECUTE stmt USING @a, @b;
+		ELSE SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid attribute';
 	end case;
 END //
 DELIMITER ;

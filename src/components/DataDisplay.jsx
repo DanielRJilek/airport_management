@@ -13,6 +13,7 @@ function DataDisplay({endpoint=null}) {
     const [deletingRow, setDeletingRow] = useState(false);
     const [action, setAction] = useState("Submit");
     const [helpMsg, setHelpMsg] = useState("");
+    const [placeholderText, setPlaceholderText] = useState("");
 
     const handleClick = (item) => {
         setSelectedRow(item);
@@ -27,27 +28,25 @@ function DataDisplay({endpoint=null}) {
     const createRow = async () => {
         setMakingChanges(true);
         setCreatingRow(true);
+        setPlaceholderText("value, value, value,...");
         setAction("Create");
     }
 
     const updateRow = async () => {
         setMakingChanges(true);
         setUpdatingRow(true);
+        setPlaceholderText("attribute, value");
         setAction("Update");
     }
 
     const filterRows = async () => {
         setMakingChanges(true);
         setFilteringRow(true);
+        setPlaceholderText("attribute, value");
         setAction("Filter");
     }
 
     const reset = (e) => {
-        // setMakingChanges(false);
-        // setCreatingRow(false);
-        // setFilteringRow(false);
-        // setUpdatingRow(false);
-        // setDeletingRow(false);
         e.target.form.reset();
     }
 
@@ -76,6 +75,32 @@ function DataDisplay({endpoint=null}) {
                 }
                 break;
             case filteringRow:
+                try {
+                    let field = e.target[0].value.toString();
+                    if (field == "") {
+                        display();
+                        break;
+                    }
+                    console.log(field);
+                    field = field.replace("`", "");
+                    let dataArray = field.split(', ');
+                    dataArray[1] = dataArray[1].replace(" ", "%20");
+                    console.log(dataArray);
+                    dataArray = dataArray.join("/");
+                    const response = await fetch((endpoint + dataArray), {
+                        method: 'get',
+                    });
+                    let data = await response.json();
+                    data = data[0];
+                    data = JSON.stringify(data);
+                    data = JSON.parse(data);
+                    setData(data);
+                }
+                catch (error) {
+                    setHelpMsg(error);
+                    console.error("Error: ", error);
+                    
+                }
                 break;
             case updatingRow:
                 try {
@@ -83,11 +108,12 @@ function DataDisplay({endpoint=null}) {
                         method: 'put',
                         body: data,
                     });
-                    if (await response.text() == '1') {
+                    let msg = await response.json();
+                    if (msg == '1') {
                         display();
                     }
                     else {
-                        setHelpMsg("Incorrect number of arguments");
+                        setHelpMsg(msg.sqlMessage);
                     }
                 }
                 catch (error) {
@@ -168,7 +194,6 @@ function DataDisplay({endpoint=null}) {
                 
             }
         }
-        
         load();
     }, []);
 
@@ -208,7 +233,6 @@ function DataDisplay({endpoint=null}) {
                     </table>
                 </div>
             </>
-            
         )
     }
 
@@ -226,7 +250,7 @@ function DataDisplay({endpoint=null}) {
                 <button className='delete-entry' onClick={deleteRow}>
                     <img src="/src/assets/images/delete.png"/>
                 </button>
-                <button className='filter-entries'>
+                <button className='filter-entries' onClick={filterRows}>
                     <img src="/src/assets/images/filter.png"/>
                 </button>
                 {/* <button onClick={display} className='refresh'>
@@ -238,9 +262,9 @@ function DataDisplay({endpoint=null}) {
             </div>
             <div className={`user-input ${makingChanges ? "": "hidden"}`}>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" id="data" name="data"></input>
+                    <input type="text" id="data" name="data" placeholder={placeholderText}></input>
                     <input type="submit" value={action}></input>
-                    <button onClick={reset} >Reset</button>
+                    <button type="button" onClick={reset} >Reset</button>
                 </form>
                 
 
