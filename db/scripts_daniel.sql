@@ -139,7 +139,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call create_passenger_flight(1,1,2);
+
 select * from passenger_flight;
 
 DELIMITER //
@@ -438,6 +438,9 @@ CREATE PROCEDURE read_meal
 BEGIN
 	SET @a = value;
     CASE
+		WHEN attribute is NULL THEN
+			PREPARE stmt from 'SELECT * FROM meal';
+            EXECUTE stmt;
 		WHEN attribute = 'meal_name' THEN 
 			PREPARE stmt from 'SELECT * FROM meal where meal.meal_name = ?';    
 			EXECUTE stmt USING @a;
@@ -539,6 +542,9 @@ CREATE PROCEDURE read_baggage
 BEGIN
 	SET @a = value;
     CASE
+		WHEN attribute is NULL THEN
+			PREPARE stmt from 'SELECT * FROM baggage';
+            EXECUTE stmt;
 		WHEN attribute = 'ticket_num' THEN 
 			PREPARE stmt from 'SELECT * FROM baggage where baggage.ticket_num = ?';    
 			EXECUTE stmt USING @a;
